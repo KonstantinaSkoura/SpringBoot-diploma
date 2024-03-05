@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Professor Home</title>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/professor/home">Home <span class="sr-only">(current)</span></a>
+      				</li>
+      				<li class="nav-item">
+						<a class="nav-link" href="/professor/personalInformation">Personal Information</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${true})}">Available Subjects</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${false})}">Subjects (Archived)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${false})}">Theses</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${true})}">Theses (Archived)</a>
+					</li>
+				</ul>
+  			</div>
+		</nav>
+		
+		<br> <br>
+		
+		<h2>Welcome <span sec:authentication="name"></span>!</h2>
+		
+		<br> <br> <hr> <br> <br>
+		
+		<p>
+			<a th:href="@{/}" class="btn btn-primary btn-sm mb-3">Home page</a>
+    		<a th:href="@{/logout}" class="btn btn-danger btn-sm mb-3">Logout</a>
+    
+		</p>
+	</div>
+</body>
+</html>

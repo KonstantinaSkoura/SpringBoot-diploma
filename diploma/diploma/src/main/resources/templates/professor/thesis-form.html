@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Add Grades</title>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/professor/home">Home <span class="sr-only">(current)</span></a>
+      				</li>
+      				<li class="nav-item">
+						<a class="nav-link" href="/professor/personalInformation">Personal Information</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${true})}">Available Subjects</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${false})}">Subjects (Archived)</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${false})}">Theses</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${true})}">Theses (Archived)</a>
+					</li>
+				</ul>
+  			</div>
+		</nav>
+		
+		<br>
+
+		<h3>Add Grades</h3>
+
+		<hr>
+		<br>
+		
+		<form th:action="@{/professor/SaveGradesOfThesis}" th:object="${thesis}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{subject}" />
+			<input type="hidden" th:field="*{student}" />
+			<input type="hidden" th:field="*{professor}" />
+			<input type="hidden" th:field="*{archived}" />
+			
+			<label for="implementationGrade">Implementation Grade</label>
+			<input type="number" min="0" max="10" step="0.01" th:field="*{implementationGrade}"
+					class="form-control mb-4 col-4" placeholder="Implementation Grade">
+
+			<label for="reportGrade">Report Grade</label>
+			<input type="number" min="0" max="10" step="0.01" th:field="*{reportGrade}"
+					class="form-control mb-4 col-4" placeholder="Report Grade">
+					
+			<label for="presentationGrade">Presentation Grade</label>
+			<input type="number" min="0" max="10" step="0.01" th:field="*{presentationGrade}"
+					class="form-control mb-4 col-4" placeholder="Presentation Grade">
+			
+			<hr>
+			
+			<button type="submit" class="btn btn-primary">Add Grades</button>
+			
+		</form>
+	</div>
+</body>
+</html>

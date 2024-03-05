@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Update personal information</title>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/professor/home">Home <span class="sr-only">(current)</span></a>
+      				</li>
+      				<li class="nav-item active">
+						<a class="nav-link" href="/professor/personalInformation">Personal Information</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${true})}">Available Subjects</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${false})}">Subjects (Archived)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${false})}">Theses</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${true})}">Theses (Archived)</a>
+					</li>
+				</ul>
+  			</div>
+		</nav>
+		
+		<br>
+		<h3>Update Personal Information</h3>
+		<hr>
+		<br>
+		
+		<form th:action="@{/professor/save}" th:object="${professor}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+			
+			<label for="firstname">First name</label>
+			<input type="text" th:field="*{name}"
+					class="form-control mb-4 col-4" placeholder="First Name">
+
+			<label for="surname">Last name</label>
+			<input type="text" th:field="*{surname}"
+					class="form-control mb-4 col-4" placeholder="Last name">
+					
+			<label for="specialty">Specialty</label>
+			<input type="text" th:field="*{specialty}"
+					class="form-control mb-4 col-4" placeholder="Specialty">
+			
+			<hr>
+			<button type="submit" class="btn btn-primary">Update</button>		
+		</form>
+	</div>
+</body>
+</html>

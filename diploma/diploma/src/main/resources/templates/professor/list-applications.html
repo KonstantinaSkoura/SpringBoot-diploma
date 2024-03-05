@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Applications</title>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/professor/home">Home <span class="sr-only">(current)</span></a>
+      				</li>
+      				<li class="nav-item">
+						<a class="nav-link" href="/professor/personalInformation">Personal Information</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${true})}">Available Subjects</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${false})}">Subjects (Archived)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${false})}">Theses</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${true})}">Theses (Archived)</a>
+					</li>
+				</ul>
+  			</div>
+		</nav>
+		
+		<br>
+
+		<h3>Applications</h3>
+
+		<br>
+		
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Title</th>
+					<th>Objectives</th>
+					<th>Student</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="app : ${applications}">
+					<td th:text="${app.subject.title}"/>
+					<td th:text="${app.subject.objectives}"/>
+					<td th:text="${app.student.name+' '+app.student.surname}"/>
+					<td>
+						<a th:href="@{/professor/studentPersonalInformation(applicationId=${app.id})}"
+							class="btn btn-info btn-sm">
+							Student Information
+						</a>			
+
+						<a th:href="@{/professor/assignDirectDiplomaThesisSubject(applicationId=${app.id})}"
+							class="btn btn-primary btn-sm">
+							Direct Assign
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<hr>
+		
+		<a th:href="@{/professor/showFormForSelectStrategy(subjectId=${subjectId})}" class="btn btn-primary">
+			Assign Diploma
+		</a>
+	</div>
+</body>
+</html>

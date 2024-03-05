@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Homepage</title>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/">Welcome to Homepage<span class="sr-only">(current)</span></a>
+      				</li>
+				</ul>
+  			</div>
+		</nav>
+		
+		<br>
+		
+		<h3>The objective of this project:</h3>
+		<p>The objective of this project is to develop a Web application that allows students to browse available
+		diploma thesis projects from various professors and apply for the diploma thesis projects that interest
+		them. The application further allows professors to assign diploma thesis projects to students, supervise
+		the assigned theses projects and assess the outcomes.</p>
+		
+		<h3>The team:</h3>
+		
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Name</th>
+					<th>AM</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Konstantina Skoura</td>
+					<td>4168</td>
+				</tr>
+				<tr>
+					<td>Panagiotis Panagiotou</td>
+					<td>4274</td>
+				</tr>
+				<tr>
+					<td>Georgios Touralias</td>
+					<td>4284</td>
+				</tr>
+			</tbody>
+		</table>	
+		
+		<br> <hr> <br>
+		
+		<div sec:authorize="hasRole('ROLE_ANONYMOUS')">
+			<p>
+				<a th:href="@{/login}" class="btn btn-primary btn-sm mb-3" th:text="Login"></a>
+				<a th:href="@{/register}" class="btn btn-primary btn-sm mb-3" th:text="Register"></a>
+			</p>
+		</div>
+
+		<div sec:authorize="isAuthenticated()">
+			<h4>Logged as: <span sec:authentication="name"></span></h4>
+			<h4>Has role: <span sec:authentication="authorities"></span></h4>
+			
+			<br> <br> <hr> <br> <br>
+			
+			<p sec:authorize="hasAuthority('STUDENT')">
+				<a th:href="@{/student/home}" class="btn btn-primary btn-sm mb-3"> Student Home</a>
+				<a th:href="@{/logout}" class="btn btn-danger btn-sm mb-3"> Logout</a>
+			</p>
+			
+			<p sec:authorize="hasAuthority('PROFESSOR')">
+				<a th:href="@{/professor/home}" class="btn btn-primary btn-sm mb-3"> Professor Home</a>
+				<a th:href="@{/logout}" class="btn btn-danger btn-sm mb-3"> Logout</a>	
+			</p>
+		</div>
+	</div>
+</body>
+</html>

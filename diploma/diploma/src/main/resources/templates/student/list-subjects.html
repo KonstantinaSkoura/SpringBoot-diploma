@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Subjects</title>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/student/home">Home <span class="sr-only">(current)</span></a>
+      				</li>
+      				<li class="nav-item">
+						<a class="nav-link" href="/student/personalInformation">Personal Information</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/student/subjects">Subjects</a>
+					</li>
+				</ul>
+  			</div>
+		</nav>
+		
+		<br>
+		<h3>Subjects</h3>
+		<br>
+		
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Professor</th>
+					<th>Title</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="subject : ${subjects}">
+					<td th:text="${subject.professor.name + ' ' + subject.professor.surname}"/>
+					<td th:text="${subject.title}"/>
+					<td>
+						<a th:href="@{/student/subjectDetails(subjectId=${subject.id})}" class="btn btn-info btn-sm">
+							Details
+						</a>			
+
+						<a th:href="@{/student/apply(subjectId=${subject.id})}" class="btn btn-primary btn-sm">
+							Apply
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+	</div>
+</body>
+</html>

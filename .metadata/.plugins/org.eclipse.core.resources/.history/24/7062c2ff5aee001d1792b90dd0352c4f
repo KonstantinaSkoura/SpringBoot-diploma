@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Thesis</title>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/student/home">Home <span class="sr-only">(current)</span></a>
+      				</li>
+      				<li class="nav-item">
+						<a class="nav-link" href="/student/personalInformation">Personal Information</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/student/subjects">Subjects</a>
+					</li>
+				</ul>
+  			</div>
+		</nav>
+		
+		<br>
+		<h3>Subject</h3>
+		<hr>
+		<h3>You have been assigned the following diploma thesis subject</h3>
+		<br>
+		
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th rowspan="2" colspan="1">Professor</th>
+					<th rowspan="2" colspan="1">Title</th>
+					<th rowspan="2" colspan="1">Objectives</th>
+					<th rowspan="1" colspan="4" class="text-center">Grades</th>
+				</tr>
+				<tr>
+		            <th>Implementation</th>
+		            <th>Report</th>
+		            <th>Presentation</th>
+		            <th>Overall</th>
+        		</tr>
+			</thead>
+			<tbody>
+				<tr th:each="thesis : ${thesis}">
+					<td th:text="${thesis.professor.name+' '+thesis.professor.surname}"/>
+					<td th:text="${thesis.subject.title}"/>
+					<td th:text="${thesis.subject.objectives}"/>
+					<td th:text="${thesis.implementationGrade}"/>
+					<td th:text="${thesis.reportGrade}"/>
+					<td th:text="${thesis.presentationGrade}"/>
+					<td th:text="${#numbers.formatDecimal(thesis.implementationGrade * 0.7 + thesis.reportGrade * 0.15 + thesis.presentationGrade * 0.15, 0, 'COMMA', 2, 'POINT')}"/>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Select Strategy</title>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/professor/home">Home <span class="sr-only">(current)</span></a>
+      				</li>
+      				<li class="nav-item">
+						<a class="nav-link" href="/professor/personalInformation">Personal Information</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${true})}">Available Subjects</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/subjects(available=${false})}">Subjects (Archived)</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${false})}">Theses</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/professor/theses(archived=${true})}">Theses (Archived)</a>
+					</li>
+				</ul>
+  			</div>
+		</nav>
+		
+		<br>
+		<h3>Select Strategy</h3>
+		<br>
+		<hr>
+		
+		<form th:action="@{/professor/assignDiplomaThesisSubject}" th:object="${strategyThreshold}" method="POST">
+			<select th:field="*{strategy}">
+				<option value="random">Random choice</option>
+				<option value="avgGrade">Best average courses grade</option>
+				<option value="remainingCourses">Fewest remaining courses for graduation</option>
+				<option value="criteria">Based on average grade and remaining courses for graduation</option>
+			</select> <br/><br/>
+			
+			<hr>
+			<h5>Fill the form if you select strategy <b># Based on average grade and remaining courses for graduation #</b></h5>
+			<br/>
+			
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{subjectId}" />
+			
+			<label for="Th1">Threshold for average courses grade</label>
+			<input type="number" min="0" max="10" step="0.01" th:field="*{Th1}"
+				   class="form-control mb-4 col-4" placeholder="Threshold for average courses grade">
+				   
+			<label for="Th2">Threshold for number of remaining courses for graduation</label>
+			<input type="number" min="0" max="48" th:field="*{Th2}"
+				   class="form-control mb-4 col-4" placeholder="Threshold for number of remaining courses for graduation">
+
+			<hr>
+			
+			<button type="submit" class="btn btn-info col-2">Continue</button> 
+		</form>
+		
+	</div>
+</body>
+</html>
